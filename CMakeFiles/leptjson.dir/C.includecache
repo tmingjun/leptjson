@@ -13,6 +13,10 @@ stdlib.h
 -
 assert.h
 -
+errno.h
+-
+math.h
+-
 
 /home/xiaotan/GitHub/leptjson/leptjson.h
 
