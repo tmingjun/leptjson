@@ -1,14 +1,35 @@
+#cmake
 CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
-
-#自定义忽略规则
-.vscode
-debug_test
 
 # Libraries
 *.lib
 *.a
 *.la
 *.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+#自定义忽略规则
+.vscode
+debug_test
