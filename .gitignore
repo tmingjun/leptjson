@@ -1,0 +1,14 @@
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+#自定义忽略规则
+.vscode
+debug_test
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
