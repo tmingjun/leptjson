@@ -29,13 +29,13 @@ typedef struct {
 /* 错误返回值类型 */
 enum {
     LEPT_PARSE_OK = 0,
-    LEPT_PARSE_EXPECT_VALUE,        /* 空白 */
-    LEPT_PARSE_INVALID_VALUE,       /* 非法值 */
-    LEPT_PARSE_ROOT_NOT_SINGULAR,   /* 非单个值 */
-    LEPT_PARSE_NUMBER_TOO_BIG,      /* 数字过大 */
-    LEPT_PARSE_MISS_QUOTATION_MARK,
-    LEPT_PARSE_INVALID_STRING_ESCAPE,
-    LEPT_PARSE_INVALID_STRING_CHAR
+    LEPT_PARSE_EXPECT_VALUE,            /* 空白 */
+    LEPT_PARSE_INVALID_VALUE,           /* 非法值 */
+    LEPT_PARSE_ROOT_NOT_SINGULAR,       /* 非单个值 */
+    LEPT_PARSE_NUMBER_TOO_BIG,          /* 数字过大 */
+    LEPT_PARSE_MISS_QUOTATION_MARK,     /* 缺少引号 */
+    LEPT_PARSE_INVALID_STRING_ESCAPE,   /* 非法转义字符 */
+    LEPT_PARSE_INVALID_STRING_CHAR      /* 非法字符 */
 };
 
 #define lept_init(v) do { (v)->type = LEPT_NULL;} while(0)

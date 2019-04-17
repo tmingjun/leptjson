@@ -33,3 +33,4 @@ cmake_install.cmake
 #自定义忽略规则
 .vscode
 debug_test
+leptjson_test

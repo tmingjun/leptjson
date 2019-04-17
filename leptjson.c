@@ -71,15 +71,35 @@ static int lept_parse_string(lept_context *c, lept_value* v)
     {
         char ch = *p++;
         switch(ch) {
-            case '\"':
+            case '\"':            /* 检测到字符串结束引号 */
                 len = c->top - head;
                 lept_set_string(v,(const char*)lept_context_pop(c,len), len);
                 c->json = p;
                 return LEPT_PARSE_OK;
-            case '\0':
+            case '\\':             /* 转义字符检测 */
+                switch(*p++) {
+                    case '\"': PUTC(c, '\"'); break;
+                    case '\\': PUTC(c, '\\'); break;
+                    case '/' : PUTC(c, '/');  break;
+                    case 'b' : PUTC(c, '\b'); break;
+                    case 'f' : PUTC(c, '\f'); break;
+                    case 'n' : PUTC(c, '\n'); break;
+                    case 'r' : PUTC(c, '\r'); break;
+                    case 't' : PUTC(c, '\t'); break;
+                    default:        /* 非法的转义字符 */
+                        c->top = head;
+                        return LEPT_PARSE_INVALID_STRING_ESCAPE;
+                }
+                break;
+            case '\0':              /* 非法异常退出 提前接触到空 */
                 c->top = head;
                 return LEPT_PARSE_MISS_QUOTATION_MARK;
             default:
+                if(ch < 0x20)       /* 非法字符检测 */
+                {
+                    c->top = head;
+                    return LEPT_PARSE_INVALID_STRING_CHAR;
+                }
                 PUTC(c,ch);
         }
     }
@@ -174,12 +194,12 @@ lept_type lept_get_type(const lept_value* v) {
 }
 
 int lept_get_boolean(const lept_value* v) {
-    /* \TODO */
-    return 0;
+    assert(v != NULL && (v->type == LEPT_TRUE || v->type == LEPT_FALSE));
+    return v->type == LEPT_TRUE;
 }
 
 void lept_set_boolean(lept_value* v, int b) {
-    /* \TODO */
+    v->type = b ? LEPT_TRUE : LEPT_FALSE;
 }
 
 /* 获取数值的API */
@@ -191,7 +211,9 @@ double lept_get_number(const lept_value * v)
 
 void lept_set_number(lept_value* v, double n)
 {
-
+    // lept_free(v);
+    v->type = LEPT_NUMBER;
+    v->u.n = n;
 }
 
 void lept_set_string(lept_value* v, const char* s, size_t len)
