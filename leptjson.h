@@ -35,7 +35,9 @@ enum {
     LEPT_PARSE_NUMBER_TOO_BIG,          /* 数字过大 */
     LEPT_PARSE_MISS_QUOTATION_MARK,     /* 缺少引号 */
     LEPT_PARSE_INVALID_STRING_ESCAPE,   /* 非法转义字符 */
-    LEPT_PARSE_INVALID_STRING_CHAR      /* 非法字符 */
+    LEPT_PARSE_INVALID_STRING_CHAR,     /* 非法字符 */
+    LEPT_PARSE_INVALID_UNICODE_HEX,     /* 解析hex失败 */
+    LEPT_PARSE_INVALID_UNICODE_SURROGATE
 };
 
 #define lept_init(v) do { (v)->type = LEPT_NULL;} while(0)
